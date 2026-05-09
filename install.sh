@@ -55,14 +55,14 @@ sudo systemctl enable --now bluetooth.service
 sudo rfkill unblock bluetooth || true
 
 echo "[+] Setting Niri as default..."
-systemctl --user daemon-reload
-
 if [[ -f "$HOME/.config/systemd/user/niri.service" ]]; then
+  systemctl --user daemon-reload
   systemctl --user enable --now niri.service
 fi
 
 echo "[+] Enabling mako sound..."
 if [[ -f "$HOME/.config/systemd/user/mako-sound.service" ]]; then
+  systemctl --user daemon-reload
   systemctl --user enable --now mako-sound.service
 fi
 
