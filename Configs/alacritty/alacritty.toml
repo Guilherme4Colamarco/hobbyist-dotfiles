@@ -10,7 +10,7 @@ blur = true
 opacity = 0.4
 
 [font]
-size = 13.0
+size = 12.5
 
 [font.normal]
 #family = "Google Sans Code NF"
