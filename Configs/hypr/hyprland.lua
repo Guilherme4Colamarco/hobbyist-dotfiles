@@ -19,7 +19,7 @@ hl.monitor({
     output   = "",
     mode     = "preferred",
     position = "auto",
-    scale    = "auto",
+    scale    = "1.0",
 })
 
 
@@ -29,8 +29,8 @@ hl.monitor({
 
 -- Set programs that you use
 local terminal    = "kitty"
-local fileManager = "dolphin"
-local menu        = "hyprlauncher"
+local fileManager = "kitty -e yazi"
+local menu        = "pkill rofi || rofi -show drun -theme ~/.config/rofi/launchpad.rasi"
 
 
 -------------------
@@ -42,11 +42,16 @@ local menu        = "hyprlauncher"
 -- Autostart necessary processes (like notifications daemons, status bars, etc.)
 -- Or execute your favorite apps at launch like this:
 --
--- hl.on("hyprland.start", function () 
---   hl.exec_cmd(terminal)
---   hl.exec_cmd("nm-applet")
---   hl.exec_cmd("waybar & hyprpaper & firefox")
--- end)
+hl.on("hyprland.start", function () 
+  hl.exec_cmd("bash $HOME/.config/Scripts/random_wall_on_home.sh")
+  hl.exec_cmd("waybar -c ~/.config/waybar/Hyprland/config.jsonc -s ~/.config/waybar/style.css")
+  hl.exec_cmd("kdeconnectd")
+  hl.exec_cmd("alacritty")
+  hl.exec_cmd("mako")
+  hl.exec_cmd("wl-paste --type text --watch cliphist store")
+  hl.exec_cmd("wl-paste --type image --watch cliphist store")
+  hl.exec_cmd("hyprctl setcursor Bibata-Modern-Ice 24")
+end)
 
 
 -------------------------------
@@ -55,8 +60,8 @@ local menu        = "hyprlauncher"
 
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
 
-hl.env("XCURSOR_SIZE", "24")
-hl.env("HYPRCURSOR_SIZE", "24")
+-- hl.env("XCURSOR_SIZE", "24")
+-- hl.env("HYPRCURSOR_SIZE", "24")
 
 
 -----------------------
@@ -86,26 +91,27 @@ hl.env("HYPRCURSOR_SIZE", "24")
 hl.config({
     general = {
         gaps_in  = 5,
-        gaps_out = 20,
+        gaps_out = 10,
 
-        border_size = 2,
+        border_size = 4,
 
         col = {
-            active_border   = { colors = {"rgba(33ccffee)", "rgba(00ff99ee)"}, angle = 45 },
+            -- active_border   = { colors = {"rgba(33ccffee)", "rgba(00ff99ee)"}, angle = 45 },
+            active_border   = "rgba(ffffffff)",
             inactive_border = "rgba(595959aa)",
         },
 
         -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
-        resize_on_border = false,
+        resize_on_border = true,
 
         -- Please see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Tearing/ before you turn this on
         allow_tearing = false,
 
-        layout = "dwindle",
+        layout = "master",
     },
 
     decoration = {
-        rounding       = 10,
+        rounding       = 24,
         rounding_power = 2,
 
         -- Change transparency of focused and unfocused windows
@@ -121,9 +127,9 @@ hl.config({
 
         blur = {
             enabled   = true,
-            size      = 3,
-            passes    = 1,
-            vibrancy  = 0.1696,
+            size      = 6,
+            passes    = 4,
+            vibrancy  = 0.4,
         },
     },
 
@@ -189,6 +195,8 @@ hl.config({
 hl.config({
     master = {
         new_status = "master",
+        mfact = 0.50,
+        orientation = "right",
     },
 })
 
@@ -196,6 +204,7 @@ hl.config({
 hl.config({
     scrolling = {
         fullscreen_on_one_column = true,
+        column_width = 0.5
     },
 })
 
@@ -205,8 +214,8 @@ hl.config({
 
 hl.config({
     misc = {
-        force_default_wallpaper = -1,    -- Set to 0 or 1 to disable the anime mascot wallpapers
-        disable_hyprland_logo   = false, -- If true disables the random hyprland logo / anime girl background. :(
+        force_default_wallpaper = 0,    -- Set to 0 or 1 to disable the anime mascot wallpapers
+        disable_hyprland_logo   = true, -- If true disables the random hyprland logo / anime girl background. :(
     },
 })
 
@@ -218,17 +227,18 @@ hl.config({
 hl.config({
     input = {
         kb_layout  = "us",
-        kb_variant = "",
-        kb_model   = "",
-        kb_options = "",
-        kb_rules   = "",
+        numlock_by_default = false,
+        repeat_rate = 60,
+        repeat_delay = 200,
 
         follow_mouse = 1,
 
-        sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
-
+        sensitivity = 1.0,
+        scroll_factor = 2.0,
+        accel_profile = "adaptive",
         touchpad = {
-            natural_scroll = false,
+            natural_scroll = true,
+            disable_while_typing = true,
         },
     },
 })
@@ -254,15 +264,39 @@ hl.device({
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
-hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
-local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
-hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
+hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("alacritty"))
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("librewolf"))
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("pkill rofi ||cliphist list | rofi -dmenu -display-columns 2 -theme ~/.config/rofi/clipboard.rasi | cliphist decode | wl-copy"))
+hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("kdeconnect-app"))
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("kitty -e bluetui"))
+hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
+-- hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ "maximized" })
+hl.bind(mainMod .. " + G", hl.dsp.exec_cmd("kitty -e btop"))
+-- hl.bind(mainMod .. " + H", hl.dsp.exec_cmd())
+-- hl.bind(mainMod .. " + I", hl.dsp.exec_cmd(terminal))
+-- hl.bind(mainMod .. " + J", hl.dsp.exec_cmd(terminal))
+-- hl.bind(mainMod .. " + K", hl.dsp.exec_cmd(terminal))
+-- hl.bind(mainMod .. " + L", hl.dsp.exec_cmd(terminal))
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("Telegram"))
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("kitty -e yazi"))
+hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("notify-send 'Hyprland doesnt have an overview feature'"))
+hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("pkill wlogout || wlogout"))
+local closeWindowBind = hl.bind(mainMod .. " + Q", hl.dsp.window.close())
+hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("pkill waybar || waybar -c $HOME/.config/waybar/Hyprland/config.jsonc -s $HOME/.config/waybar/style.css"))
+hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("brave -new-window || brave-origin-beta https://www.youtube.com"))
+hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("kitty"))
+-- hl.bind(mainMod .. " + U", hl.dsp.exec_cmd(""))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
-hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
-hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("bash $HOME/.config/Scripts/random_wall_on_home.sh"))
+hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("kitty -e cmus"))
+hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd("kitty -e nmtui"))
+hl.bind(mainMod .. " + Z", hl.dsp.exec_cmd("localsend"))
+hl.bind(mainMod .. "+ CTRL + E", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
+hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd(menu))
+hl.bind("ALT + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
+-- hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
+-- hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
@@ -270,6 +304,29 @@ hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + up",    hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + down",  hl.dsp.focus({ direction = "down" }))
 
+hl.bind(mainMod .. " + H",  hl.dsp.focus({ direction = "left" }))
+hl.bind(mainMod .. " + L", hl.dsp.focus({ direction = "right" }))
+hl.bind(mainMod .. " + K",    hl.dsp.focus({ direction = "up" }))
+hl.bind(mainMod .. " + J",  hl.dsp.focus({ direction = "down" }))
+
+-- Move windows
+hl.bind(mainMod .. " + SHIFT + left",  hl.dsp.window.move({ direction = "l" }))
+hl.bind(mainMod .. " + SHIFT + right", hl.dsp.window.move({ direction = "r" }))
+hl.bind(mainMod .. " + SHIFT + up",    hl.dsp.window.move({ direction = "u" }))
+hl.bind(mainMod .. " + SHIFT + down",  hl.dsp.window.move({ direction = "d" }))
+
+hl.bind(mainMod .. " + SHIFT + H",  hl.dsp.window.move({ direction = "l" }))
+hl.bind(mainMod .. " + SHIFT + L",  hl.dsp.window.move({ direction = "r" }))
+hl.bind(mainMod .. " + SHIFT + K",  hl.dsp.window.move({ direction = "u" }))
+hl.bind(mainMod .. " + SHIFT + J",  hl.dsp.window.move({ direction = "d" }))
+
+
+-- -- Resize windows (hold mainMod + Ctrl)
+-- hl.bind(mainMod .. " + CTRL + left",  hl.dsp.window.resize({ direction = "l", step = 50 }))
+-- hl.bind(mainMod .. " + CTRL + right", hl.dsp.window.resize({ direction = "r", step = 50 }))
+-- hl.bind(mainMod .. " + CTRL + up",    hl.dsp.window.resize({ direction = "u", step = 50 }))
+-- hl.bind(mainMod .. " + CTRL + down",  hl.dsp.window.resize({ direction = "d", step = 50 }))
+--
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
 for i = 1, 10 do
@@ -339,18 +396,30 @@ hl.window_rule({
 })
 
 -- Layer rules also return a handle.
--- local overlayLayerRule = hl.layer_rule({
---     name  = "no-anim-overlay",
---     match = { namespace = "^my-overlay$" },
---     no_anim = true,
--- })
+local overlayLayerRule = hl.layer_rule({
+    name  = "wlogout",
+    match = { namespace = "^logout_dialog$" },
+    blur = true,
+})
+
+local overlayLayerRule = hl.layer_rule({
+    name  = "waybar",
+    match = { namespace = "^waybar$" },
+    blur = true,
+})
+
+local overlayLayerRule = hl.layer_rule({
+    name  = "rofi",
+    match = { namespace = "^rofi$" },
+    blur = true,
+})
+
 -- overlayLayerRule:set_enabled(false)
 
 -- Hyprland-run windowrule
 hl.window_rule({
     name  = "move-hyprland-run",
     match = { class = "hyprland-run" },
-
     move  = "20 monitor_h-120",
     float = true,
 })
