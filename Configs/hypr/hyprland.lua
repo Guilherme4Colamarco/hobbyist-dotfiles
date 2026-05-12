@@ -37,7 +37,7 @@ hl.config({
         col = {
             -- active_border   = { colors = {"rgba(33ccffee)", "rgba(00ff99ee)"}, angle = 45 },
             active_border   = "rgba(ffffffff)",
-            inactive_border = "rgba(595959aa)",
+            inactive_border = "rgba(00000000)",
         },
 
         resize_on_border = true,
@@ -316,6 +316,13 @@ hl.workspace_rule({ workspace = "1", layout = "dwindle" })
 hl.workspace_rule({ workspace = "2", layout = "scrolling" })
 
 hl.window_rule({
+    name   = "float-file-pickers",
+    match  = { title = "^(Open File|Open Folder|Open|Save|Save As|Export|Import|Choose File|Rename)$" },
+    float  = true,
+    center = true,
+})
+
+hl.window_rule({
     name  = "suppress-maximize-events",
     match = { class = ".*" },
     suppress_event = "maximize",
@@ -335,30 +342,21 @@ hl.window_rule({
 })
 
 hl.window_rule({
-    name  = "pip-for-firefox-based",
-    match = { title = "Picture-in-Picture", },
+    name  = "pip n kdeconnect daemon popups",
+    match = { title = "Picture-in-Picture|Picture in picture", },
+    match = { class = "org.kde.kdeconnect.daemon" },
     float = true,
-    move = {1420,790},
+    move = {1470,820},
     opacity = "1.0",
+    pin = true,
     keep_aspect_ratio = true,
-    size = {"(monitor_w*0.25)", "(monitor_h*0.25)"},
-    no_initial_focus = true,
-})
-
-hl.window_rule({
-    name  = "pip-for-chromium-based",
-    match = { title = "Picture in picture",},
-    float = true,
-    move = {1420,780},
-    opacity = "1.0",
-    keep_aspect_ratio = true,
-    size = {"(monitor_w*0.24)", "(monitor_h*0.24)"},
+    size = {"(monitor_w*0.22)","(monitor_h*0.22)"},
     no_initial_focus = true,
 })
 
 hl.layer_rule({
-    name  = "wlogout",
-    match = { namespace = "logout_dialog" },
+    name  = "Essential blur",
+    match = { namespace = "logout_dialog|rofi|quickshell" },
     blur = true,
     ignore_alpha = 0,
 })
@@ -369,20 +367,6 @@ hl.layer_rule({
     blur = true,
     ignore_alpha = 0,
     animation = "slide top",
-})
-
-hl.layer_rule({
-    name  = "rofi",
-    match = { namespace = "rofi" },
-    blur = true,
-    ignore_alpha = 0,
-})
-
-hl.layer_rule({
-    name  = "quickshell",
-    match = { namespace = "quickshell" },
-    blur = true,
-    ignore_alpha = 0,
 })
 
 hl.layer_rule({
@@ -400,44 +384,13 @@ hl.layer_rule({
 })
 
 hl.window_rule({
-    name  = "move-hyprland-run",
-    match = { class = "hyprland-run" },
-    move  = "20 monitor_h-120",
-    float = true,
-})
-
-hl.window_rule({
-    name  = "localsend",
-    match = { class = "localsend" },
-    animation = "slide right",
-    float = true,
-    no_initial_focus = false,
-    move = {1505,300},
-    opacity = "0.8",
-    pin = true,
-    size = {"(monitor_w*0.20)", "(monitor_h*0.70)"},
-})
-
-hl.window_rule({
-    name  = "kdeconnect",
-    match = { class = "org.kde.kdeconnect.app" },
+    name  = "Floating apps",
+    match = { class = "org.kde.kdeconnect.app|localsend" },
     animation = "slide right",
     float = true,
     no_initial_focus = false,
     move = {1510,300},
     opacity = "0.8",
     pin = true,
-    size = {"(monitor_w*0.20)", "(monitor_h*0.70)"},
-})
-
-hl.window_rule({
-    name  = "kdeconnect daemon",
-    match = { class = "org.kde.kdeconnect.daemon" },
-    animation = "slide right",
-    float = true,
-    size = {"(monitor_w*0.24)", "(monitor_h*0.24)"},
-    no_initial_focus = false,
-    move = {1430,790},
-    opacity = "0.8",
-    pin = true,
+    size = {"(monitor_w*0.20)","(monitor_h*0.70)"},
 })
