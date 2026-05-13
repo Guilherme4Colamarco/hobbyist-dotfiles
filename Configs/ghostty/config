@@ -1,0 +1,21 @@
+font-family = Google Sans Code NF
+font-size = 14
+theme = Dracula
+clipboard-read = allow
+copy-on-select = clipboard
+window-theme = ghostty
+window-decoration = none
+window-padding-x = 20
+window-padding-y = 12
+window-padding-balance = true
+background-blur = true
+background-image-opacity = 0.4
+scrollbar = never
+window-height = 30
+window-width = 100
+cursor-style = bar
+cursor-style-blink = true
+mouse-hide-while-typing = true
+confirm-close-surface = false
+keybind = ctrl+c=copy_to_clipboard
+keybind = ctrl+v=paste_from_clipboard

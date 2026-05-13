@@ -205,7 +205,7 @@ hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized", action
 hl.bind(mainMod .. " + G", hl.dsp.exec_cmd("kitty -e btop"))
 
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("Telegram"))
-hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("kitty -e yazi"))
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("ghostty -e yazi"))
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("notify-send 'Hyprland doesnt have an overview feature'"))
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("pkill wlogout || wlogout"))
 hl.bind(mainMod .. " + Q", hl.dsp.window.close(), { repeating = true })
