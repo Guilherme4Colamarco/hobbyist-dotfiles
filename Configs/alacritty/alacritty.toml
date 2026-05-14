@@ -13,8 +13,7 @@ opacity = 0.4
 size = 12.5
 
 [font.normal]
-#family = "Google Sans Code NF"
-family = "ProFont IIx Nerd Font Mono"
+family = "JetBrainsMono Nerd Font"
 # style = "Regular"
 
 [selection]
