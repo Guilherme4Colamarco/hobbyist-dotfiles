@@ -1,5 +1,10 @@
 input {
   keyboard {
+    xkb {
+      layout "br"
+      variant "abnt2"
+    }
+
     repeat-rate 60
     repeat-delay 200
   }
