@@ -67,3 +67,8 @@ zoxide init fish | source
 
 set -x VISUAL nvim
 set -x EDITOR nvim
+
+# npm-global bin (OpenClaw etc)
+if not contains -- "$HOME/.npm-global/bin" $PATH
+    set -gx PATH $HOME/.npm-global/bin $PATH
+end

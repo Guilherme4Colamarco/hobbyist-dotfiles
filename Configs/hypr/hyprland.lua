@@ -4,7 +4,7 @@
 
 hl.monitor({
     output   = "",
-    mode     = "preferred",
+    mode     = "1920x1080@165",
     position = "auto",
     scale    = "1.0",
 })
@@ -181,7 +181,8 @@ hl.config({
 
 hl.config({
     input = {
-        kb_layout  = "us",
+        kb_layout  = "br",
+        kb_variant = "abnt2",
         numlock_by_default = false,
         repeat_rate = 60,
         repeat_delay = 200,

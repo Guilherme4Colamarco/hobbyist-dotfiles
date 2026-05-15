@@ -1,7 +1,7 @@
 entry {
   placeholder: "Type here to search";
-  placeholder-color: rgba(255,255,255,0.6);
-  text-color: white;
+  placeholder-color: rgba(228,226,228,0.6);
+  text-color: #e4e2e4;
   font: "Google Sans Flex 12";
   padding: 8px 0 8px 24px;
 }
@@ -16,12 +16,14 @@ inputbar {
   padding          : 8px;
   spacing          : 20px;
   border-radius    : 32px;
-  background-color : rgba(255,255,255, 10%);
+  background-color : rgba(187,198,232, 10%);
 }
 
 * {
   separatorcolor: transparent;
-  selected-normal-background: rgba(255,255,255, 15%);
+  selected-normal-background: rgba(187,198,232, 18%);
+  selected-normal-foreground: #e4e2e4;
+  normal-foreground: #e4e2e4;
   normal-background: transparent;
   alternate-normal-background: transparent;
 }
@@ -34,8 +36,9 @@ mainbox {
 
 window {
   border-radius: 50px;
-  background-color: rgba(00,00,00,40%);
-  border: none;
+  background-color: rgba(14,14,16,55%);
+  border: 1px;
+  border-color: rgba(187,198,232,45%);
   padding: 24px;
   width: 45%;
   height: 60%;
@@ -65,6 +68,6 @@ element-icon {
 }
 
 element-text {
-  text-color: white;
+  text-color: #e4e2e4;
   horizontal-align: 0.5;
 }

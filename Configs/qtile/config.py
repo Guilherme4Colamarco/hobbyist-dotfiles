@@ -3,6 +3,7 @@ from collections.abc import Callable
 
 import libqtile.resources
 from libqtile import bar, layout, qtile, widget
+from libqtile.backend.wayland import InputConfig
 from libqtile.config import Click, Drag, Group, Key, Match, Output, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
@@ -237,7 +238,12 @@ reconfigure_screens = True
 auto_minimize = True
 
 # When using the Wayland backend, this can be used to configure input devices.
-wl_input_rules = None
+wl_input_rules = {
+    "type:keyboard": InputConfig(
+        kb_layout="br",
+        kb_variant="abnt2",
+    ),
+}
 
 # xcursor theme (string or None) and size (integer) for Wayland backend
 wl_xcursor_theme = None

@@ -12,7 +12,8 @@ autostart = [
 focus_follows_mouse = true
 
 [input.keyboard]
-layout = "us"
+layout = "br"
+variant = "abnt2"
 repeat_rate = 60
 repeat_delay = 300
 
@@ -105,7 +106,7 @@ shader_path = "~/Wallpapers/pink_cloud.glsl"
 # Directions: up, down, left, right, up-left, up-right, down-left, down-right
 
 [keybindings]
-"mod+t" = "exec alacritty"
+"mod+enter" = "exec alacritty"
 "mod+n" = "exec alacritty -e yazi"
 "mod+x" = "exec alacritty -e cmus"
 "mod+b" = "exec librewolf"
@@ -234,7 +235,7 @@ name = "eDP-1"           # connector name (required)
 # # scale = 1.5              # fractional scale (default: 1.0)
 transform = "normal"     # normal, 90, 180, 270, flipped, flipped-90, flipped-180, flipped-270
 position = "auto"        # "auto" (left-to-right) or [x, y] in layout coords
-mode = "preferred"       # "preferred", "1920x1080", or "2560x1440@144"
+mode = "1920x1080@165"   # "preferred", "1920x1080", or "2560x1440@144"
 
 # Window rules: match windows by app_id and/or title and apply overrides.
 # At least one of app_id or title is required. Both support * glob.

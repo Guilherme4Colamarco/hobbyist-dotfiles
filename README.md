@@ -103,6 +103,14 @@ cd ~/hobbyist-dotfiles/
 bash install.sh
 ```
 
+The installer now has a shell-only interactive TUI. For unattended runs:
+
+```bash
+DOTFILES_ASSUME_YES=1 DOTFILES_BROWSERS=4 bash install.sh
+```
+
+Set `DOTFILES` if the repo is stored somewhere else.
+
 ### Stow conflicts
 
 If GNU Stow reports conflicts, use the helper directly:
